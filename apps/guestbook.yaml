@@ -3,20 +3,15 @@ kind: Application
 metadata:
   name: guestbook
   namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: guestbook
-    name: kind
+    server: "https://kubernetes.default.svc"
   project: default
   source:
-    path: general/helm-guestbook
-    repoURL: https://github.com/morey-tech/argocd-example-apps
-    targetRevision: HEAD
+    path: guestbook
+    repoURL: "https://github.com/elchinefa/argocd-example-apps.git"
+    targetRevision: master
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
     syncOptions:
       - CreateNamespace=true
